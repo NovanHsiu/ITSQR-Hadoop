@@ -1,12 +1,11 @@
-ITSQR: Iterative Tall-and-Skinny QR Factorization in Hadoop MapReduce Implementation
-Version 0.1
-Distributed in 2014/09/04
+# ITSQR: Iterative Tall-and-Skinny QR Factorization in Hadoop MapReduce Implementation
+* Version 0.1
+* Distributed in 2014/09/04
 ===
+Author: Hsiu-Cheng Yu, Che-Rung Lee
 
-### Hsiu-Cheng Yu, Che-Rung Lee
 
-
-# Introduction
+## Introduction
 ----------------
 The function provided by this package is a QR factorizations for Tall-and-Skinny matrices (TSQR) in Hadoop MapReduce implementation.  
 A 'Tall-and-Skinny matrix' which number of rows is much bigger than its number of columns. 
@@ -22,7 +21,7 @@ In this implementation, we provide three functions:
  
 This code is written in Java and uses JLAPACK and JBLAS library for matrix computation.
 
-# Environment Setup
+## Environment Setup
 --------
 This code is for Linux systems.  It is built based on several packages. Make sure those packages are properly installed before using this package.
 
@@ -30,19 +29,19 @@ This code is for Linux systems.  It is built based on several packages. Make sur
  * matrix-toolkits-java (https://github.com/fommil/matrix-toolkits-java)
  * JLAPACK, JBLAS and F2JUTLI (http://www.netlib.org/java/f2j/)
 
-# Compiling 
+## Compiling 
 --------------
 There are five paths need to setup in script of compile: HADOOP_HOME, MTJ, JLAPACK, "JBLAS" and "JUTIL".
 
- - HADOOP_HOME
-   Path where Hadoop is installed.
- - MTJ 
+ * HADOOP_HOME
+  Path where Hadoop is installed.
+ * MTJ 
   Path where matrix-toolkits-java is installed.
- - JLAPACK
+ * JLAPACK
   Path where is lapack.jar package
- - JBLAS
+ * JBLAS
   Path where is blas.jar package
- - JUTIL
+ * JUTIL
   Path where is f2jutil.jar package
   
 The Makefile have two commands.
@@ -52,7 +51,7 @@ The Makefile have two commands.
      Remove JAR file and directory of Class file
 
 
-# Usage Example and Command Line Arguments
+## Usage Example and Command Line Arguments
 ----------------------------------------------------
 
  $(MTJ)
@@ -68,24 +67,24 @@ The Makefile have two commands.
  $(TSQR_DIR)
   Path where TSQR package is installed
   
-## Upload our example for experiment of ITSQR or SSVD
- $ hadoop fs -mkdir tsqr
- $ hadoop fs -copyFromLocal testdata/100x5
+### Upload our example for experiment of ITSQR or SSVD
+ `hadoop fs -mkdir tsqr`
+ `hadoop fs -copyFromLocal testdata/100x5`
  
 In the input file of example, one line means one row in a matrix, and numbers are separated by a space. 
 If you want to use other matrices for this code, the format of matrices must follow above rules.
 
-## Upload our example for experiment of Recommendation System
- $ hadoop fs -mkdir ratingData
- $ hadoop fs -copyFromLocal testdata/testRatingData
+### Upload our example for experiment of Recommendation System
+ `hadoop fs -mkdir ratingData`
+ `hadoop fs -copyFromLocal testdata/testRatingData`
  
  The input of recommendation system is composed by user ratings for items in text file, looks like following example:
  <user id> <item id> <rating value>
  108 123 3.5
 
-## Example: Run Iterative TSQR
-### Do QR Factorization only
- ${HADOOP_HOME}/bin/hadoop jar ${TSQR_DIR}/TSQR.jar nthu.scopelab.tsqr.TSQRunner \
+### Example: Run Iterative TSQR
+* Do QR Factorization only
+ {HADOOP_HOME}/bin/hadoop jar ${TSQR_DIR}/TSQR.jar nthu.scopelab.tsqr.TSQRunner \
  -libjars '$(MTJ),$(JLAPACK),$(JBLAS),$(JUTIL)' \
  -input mat/100x5 \
  -output tsqrOutput \
@@ -94,7 +93,6 @@ If you want to use other matrices for this code, the format of matrices must fol
  -mis 64 \
  -type 0
  
-
 ### Compute Q^T*A
  ${HADOOP_HOME}/bin/hadoop jar ${TSQR_DIR}/TSQR.jar nthu.scopelab.tsqr.TSQRunner \
  -libjars '$(MTJ),$(JLAPACK),$(JBLAS),$(JUTIL)' \
@@ -107,7 +105,7 @@ If you want to use other matrices for this code, the format of matrices must fol
  -mis 64 \
  -type 1
 
-#### Explanation of Arguments for Running Iterative TSQR
+### Explanation of Arguments for Running Iterative TSQR
 The argument has star mark * means that it must be given a value by user and other arguments without star mark have default value.
 
  -libjar *
@@ -132,7 +130,7 @@ The argument has star mark * means that it must be given a value by user and oth
  -type *
   0 means that do QR factorization only and 1 is to compute Q^T*B
 
-## Example: Run SSVD
+### Example: Run SSVD
  ${HADOOP_HOME}/bin/hadoop jar ${TSQR_DIR}/TSQR.jar nthu.scopelab.tsqr.ssvd.SSVDRunner \
  -libjars '$(MTJ),$(JLAPACK),$(JBLAS),$(JUTIL)' \
  -input mat/100kx500 \
@@ -144,7 +142,7 @@ The argument has star mark * means that it must be given a value by user and oth
  -oversampling 50 \
  -reduceTasks 8
 
-#### Explanation of Arguments for Running SSVD
+### Explanation of Arguments for Running SSVD
  - input, output, ....
   The same as they are in the TSQR example
  - rank
@@ -154,8 +152,7 @@ The argument has star mark * means that it must be given a value by user and oth
  - reduceTasks *
   Number of Reduce tasks of BtJob, UJob and VJob
 
-## Example: Running Iterative TSQR SSVD (ITSSVD) Item-Based Recommendation System 
-
+### Example: Running Iterative TSQR SSVD (ITSSVD) Item-Based Recommendation System 
 
  ${HADOOP_HOME}/bin/hadoop jar ${TSQR_DIR}/TSQR.jar nthu.scopelab.tsqr.ssvdcf.RecommendationRunner \
  -libjars '$(MTJ)' \
@@ -167,18 +164,18 @@ The argument has star mark * means that it must be given a value by user and oth
  -subRowSize 1000 \
  -numRec 10
 
-#### Explanation of Arguments for Running Recommendation System 
+### Explanation of Arguments for Running Recommendation System 
  - input, output, ....
   The same as they are in the SSVD example
  - numRec
   Number of recommended item for per user
   
-## Example: Turn the matrix from Hadoop sequencefile into text file and then print out 
+### Example: Turn the matrix from Hadoop sequencefile into text file and then print out 
  ${HADOOP_HOME}/bin/hadoop jar ${TSQR_DIR}/TSQR.jar nthu.scopelab.tsqr.rs.readSFMat \
  -libjars '$(MTJ),$(JLAPACK),$(JBLAS),$(JUTIL)' \
  input tsqrOutput/part-00000
  
-# Tuning Suggestion of Arguments
+## Tuning Suggestion of Arguments
 --------------------------------
 If you want improve performance for ITSQR by tuning argument. We have some tips for following three arguments.
 
@@ -198,14 +195,14 @@ check the value of mis in ITSQR.
 The default value of this argument was one (1). If you encounter the out of memory problem of JVM or performance bottleneck in QRFirstJob or QJob
 that caused by bigger data, you could find more detail in section 5.4.2 of my thesis which is descirbed in above part of introduction.
 
-# Overview
+## Overview
 --------
- * itsqr/nthu/scopelab/tsqr/TSQRunner.java - driver code for TSQR
- * itsqr/nthu/scopelab/tsqr/SequencefileMatrixMaker.java - driver code for MapReduce code, which turns the matrix from text file to Hadoop sequencefile 
- * itsqr/nthu/scopelab/tsqr/ssvd/SSVDRunner.java - driver code for SSVD
- * itsqr/nthu/scopelab/tsqr/ssvdcf/RecommendationRunner.java - driver code for Recommendation System
+ * `itsqr/nthu/scopelab/tsqr/TSQRunner.java` - driver code for TSQR
+ * `itsqr/nthu/scopelab/tsqr/SequencefileMatrixMaker.java` - driver code for MapReduce code, which turns the matrix from text file to Hadoop sequencefile 
+ * `itsqr/nthu/scopelab/tsqr/ssvd/SSVDRunner.java` - driver code for SSVD
+ * `itsqr/nthu/scopelab/tsqr/ssvdcf/RecommendationRunner.java` - driver code for Recommendation System
 
-# References
+## References
 --------------
  * Direct QR factorizations for tall-and-skinny matrices in MapReduce architectures [[pdf](http://arxiv.org/abs/1301.1071)]
  * Tall and skinny QR factorizations in MapReduce architectures [[pdf](http://www.cs.purdue.edu/homes/dgleich/publications/Constantine%202011%20-%20TSQR.pdf)]
