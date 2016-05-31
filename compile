@@ -1,9 +1,0 @@
-#!/bin/sh
-hadoop_home=$1
-mtj=$2
-jlapack=$3
-jblas=$4
-f2jutil=$5
-hadoopcore=$(ls $hadoop_home/hadoop-core-*.jar)
-slf4j=$(ls $hadoop_home/lib/slf4j-api-*.jar)
-echo "javac -classpath $hadoopcore:$mtj:$slf4j:$jblas:$jlapack:$f2jutil -d TSQR itsqr/nthu/scopelab/tsqr/*.java itsqr/nthu/scopelab/tsqr/matrix/*.java itsqr/nthu/scopelab/tsqr/math/*.java itsqr/nthu/scopelab/tsqr/ssvd/*.java itsqr/nthu/scopelab/tsqr/ssvdcf/*.java itsqr/nthu/scopelab/tsqr/test/*.java"

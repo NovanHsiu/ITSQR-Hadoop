@@ -1,0 +1,34 @@
+<project>
+<groupId>nthu.scopelab.tsqr</groupId>
+<artifactId>TSQR</artifactId>
+<modelVersion>4.0.0</modelVersion>
+<name>ITSQR_Hadoop</name>
+<packaging>jar</packaging>
+<version>0.1</version>
+<dependencies>
+<!-- mtj -->
+<dependency>
+    <groupId>com.googlecode.matrix-toolkits-java</groupId>
+    <artifactId>mtj</artifactId>
+    <version>0.9.14</version>
+</dependency>
+<!-- f2j_arpack -->
+<dependency>
+    <groupId>net.sourceforge.f2j</groupId>
+    <artifactId>arpack_combined_all</artifactId>
+    <version>0.1</version>
+</dependency>
+<!-- hadoop -->
+<dependency>
+ <groupId>org.apache.hadoop</groupId>
+ <artifactId>hadoop-client</artifactId>
+ <version>1.2.1</version>
+</dependency>
+<!-- slf4j -->
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.4.3</version>
+</dependency>
+</dependencies>
+</project>
