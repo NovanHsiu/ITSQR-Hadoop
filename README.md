@@ -72,10 +72,12 @@ The Makefile have two commands.
 In the input file of example, one line means one row in a matrix, and numbers are separated by a space. 
 If you want to use other matrices for this code, the format of matrices must follow above rules.
 
-### Upload our example for experiment of Recommendation System
- `$ hadoop fs -mkdir ratingData`
- `$ hadoop fs -copyFromLocal testdata/testRatingData`
- 
+### Upload our test data for experiment of Recommendation System
+```
+ $ hadoop fs -mkdir ratingData`
+ $ hadoop fs -copyFromLocal testdata/testRatingData`
+```
+
  The input of recommendation system is composed by user ratings for items in text file, looks like following example:
 ```
  <user id> <item id> <rating value>
